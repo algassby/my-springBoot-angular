@@ -1,0 +1,28 @@
+
+<div class="">
+    <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3">Add new</button>
+</div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOM</th>
+        <th scope="col">FONCTION</th>
+        <th scope="col">TELELEPHONE</th>
+        <th scope="col">SEXE</th>
+        <th scope="col">AGE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of persons; let i = index">
+        <td>{{p.id}}</td>
+        <td>{{p.nom}}</td>
+        <td>{{p.fonction}}</td>
+        <td>{{p.tel}}</td>
+        <td>{{p.age}}</td>
+        <td>{{p.sexe}}</td>
+      </tr>
+
+    </tbody>
+  </table>
