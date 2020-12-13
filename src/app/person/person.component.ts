@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-person',
@@ -11,9 +12,17 @@ import { Observable } from 'rxjs';
 export class PersonComponent implements OnInit {
 
   persons:Person[] = [];
-  constructor(private service: PersonService) { }
+
+  personSubscription :Subscription = new Subscription();
+  constructor(private service: PersonService,private route:Router) { }
 
   ngOnInit(): void {
+
+    this.personSubscription = this.service.personSubject.subscribe(
+      (data:any[])=>{
+        this.persons = data;
+      }
+    );
    this.findAll();
   }
 
@@ -27,5 +36,24 @@ export class PersonComponent implements OnInit {
     }
 
     );
+  }
+
+  findById(id:number){
+    this.service.findById(id).subscribe(
+      data=>console.log(data),
+      error=>console.log(error)
+    );
+  }
+
+  trackById(person:Person, index:number) {
+    return index;
+  }
+
+  onNew(){
+    this.route.navigate(['person','new']);
+  }
+
+  onView(id:number){
+    this.route.navigate(['/person', id]);
   }
 }

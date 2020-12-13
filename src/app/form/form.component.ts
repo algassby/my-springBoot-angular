@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Person } from '../model/person';
+import { PersonService } from '../service/person.service';
 
 @Component({
   selector: 'app-form',
@@ -7,9 +11,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-  constructor() { }
+  personForm:FormGroup = new  FormGroup({});
+  constructor(private service: PersonService,private route:Router, private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm(){
+    this.personForm = this.formBuilder.group({
+
+      nom:['', Validators.required],
+      fonction:['', Validators.required],
+      tel:['', Validators.required],
+      sexe:['', Validators.required],
+      age:['', Validators.required]
+
+    });
+  }
+  onSave(){
+    const nom = this.personForm.get('nom')?.value;
+    const fonction = this.personForm.get('fonction')?.value;
+    const tel = this.personForm.get('tel')?.value;
+    const sexe = this.personForm.get('sexe')?.value;
+    const age = this.personForm.get('age')?.value;
+    const person = new Person(0,nom, fonction, tel, sexe, age,);
+
+    this.service.create(person).subscribe(
+      data => console.log(data),
+      error=> console.log(error)
+    );
+    this.route.navigate(['/person']);
+
   }
 
 }

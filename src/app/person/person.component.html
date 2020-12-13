@@ -1,6 +1,6 @@
 
 <div class="">
-    <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3">Add new</button>
+    <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3" (click) = "onNew()">Add new</button>
 </div>
 
 <table class="table">
@@ -12,16 +12,18 @@
         <th scope="col">TELELEPHONE</th>
         <th scope="col">SEXE</th>
         <th scope="col">AGE</th>
+        <th scope="col">ACTION</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of persons; let i = index">
+      <tr *ngFor="let p of persons   let i = index">
         <td>{{p.id}}</td>
         <td>{{p.nom}}</td>
         <td>{{p.fonction}}</td>
         <td>{{p.tel}}</td>
         <td>{{p.age}}</td>
         <td>{{p.sexe}}</td>
+        <td><button class="btn btn-success" (click)="onView(i+1)">voir</button></td>
       </tr>
 
     </tbody>

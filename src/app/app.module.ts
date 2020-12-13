@@ -4,28 +4,31 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PersonComponent } from './person/person.component';
-import { SinglePersonComponent } from './single-person/single-person.component';
 import { FormComponent } from './form/form.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonService } from './service/person.service';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SinglePersonComponent } from './single-person/single-person.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PersonComponent,
-    SinglePersonComponent,
     FormComponent,
-    HeaderComponent
+    HeaderComponent,
+    SinglePersonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule, 
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [
     PersonService
