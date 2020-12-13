@@ -1,20 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })
-export class PersonComponent implements OnInit {
+export class PersonComponent implements OnInit, OnDestroy {
 
+  @ViewChild('closebutton') closebutton: any;
   persons:Person[] = [];
+  personForm:FormGroup = new FormGroup({});
 
   personSubscription :Subscription = new Subscription();
-  constructor(private service: PersonService,private route:Router) { }
+  constructor(private service: PersonService,private route:Router, private formBuilder:FormBuilder) { }
+  ngOnDestroy(): void {
+    this.personSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
 
@@ -23,7 +29,10 @@ export class PersonComponent implements OnInit {
         this.persons = data;
       }
     );
+   
+   this.initForm();
    this.findAll();
+   this.service.emitPersons();
   }
 
   findAll(){
@@ -36,6 +45,36 @@ export class PersonComponent implements OnInit {
     }
 
     );
+    //this.service.emitPersons();
+  }
+  initForm(){
+    this.personForm = this.formBuilder.group({
+
+      nom:['', Validators.required],
+      fonction:['', Validators.required],
+      tel:['', Validators.required],
+      sexe:['', Validators.required],
+      age:['', Validators.required]
+
+    });
+  }
+  onSave(){
+    const nom = this.personForm.get('nom')?.value;
+    const fonction = this.personForm.get('fonction')?.value;
+    const tel = this.personForm.get('tel')?.value;
+    const sexe = this.personForm.get('sexe')?.value;
+    const age = this.personForm.get('age')?.value;
+    const person = new Person(0,nom, fonction, tel, sexe, age,);
+
+    this.service.create(person).subscribe(
+      data => console.log(data),
+      error=> console.log(error)
+    );
+    
+    this.closebutton.nativeElement.click();
+    this.findAll();
+    //this.route.navigate(['/person']);
+
   }
 
   findById(id:number){
@@ -56,4 +95,6 @@ export class PersonComponent implements OnInit {
   onView(id:number){
     this.route.navigate(['/person', id]);
   }
+
+
 }

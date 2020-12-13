@@ -2,7 +2,57 @@
 <div class="">
     <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3" (click) = "onNew()">Add new</button>
 </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-3 ml-3" data-toggle="modal" data-target="#modalAdd">
+  Add new
+</button>
 
+<!-- Modal add -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter une nouvelle personne</h5>
+        <button type="button" class="close" #closebutton data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="personForm" (ngSubmit) ="onSave()">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrer le nom">
+          </div>
+          <div class="form-group">
+            <label for="fonction">fonction</label>
+            <input type="text" class="form-control" id="fonction" formControlName="fonction" placeholder="Fonction">
+          </div>
+          <div class="form-group">
+              <label for="tel">Telephone</label>
+              <input type="number" class="form-control" id="tel" formControlName="tel" placeholder="tel">
+            </div>
+          <div class="form-group">
+              <label for="sexe">Sexe</label>
+              <input type="text" class="form-control" id="sexe" formControlName="sexe" placeholder="Another input">
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age">
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="personForm.invalid" >Save</button>
+              <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
+            </div>
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
 <table class="table">
     <thead>
       <tr>
