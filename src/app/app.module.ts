@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SinglePersonComponent } from './single-person/single-person.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SinglePersonComponent } from './single-person/single-person.component';
     PersonComponent,
     FormComponent,
     HeaderComponent,
-    SinglePersonComponent
+    SinglePersonComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ export class Person {
     constructor(public id:number,public nom:String, public fonction:String,public tel: number, public sexe:String,public age:number){
 
     }
+   
     
 
 

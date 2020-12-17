@@ -4,7 +4,7 @@
 </div>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary mb-3 ml-3" data-toggle="modal" data-target="#modalAdd">
-  Add new
+  <i class="fa fa-plus">Add new</i>
 </button>
 
 <!-- Modal add -->
@@ -43,7 +43,7 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" [disabled]="personForm.invalid" >Save</button>
+              <button type="submit" class="btn btn-primary" [disabled]="personForm.invalid" >  Save</button>
               <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
             </div>
         </form>
@@ -53,6 +53,7 @@
     </div>
   </div>
 </div>
+
 <table class="table">
     <thead>
       <tr>
@@ -73,7 +74,11 @@
         <td>{{p.tel}}</td>
         <td>{{p.age}}</td>
         <td>{{p.sexe}}</td>
-        <td><button class="btn btn-success" (click)="onView(i+1)">voir</button></td>
+        <td><button class="btn btn-success" (click)="onView(p.id)"><i class="fa fa-eye"></i>voir</button>
+          <button type="button" class="btn btn-success mr-3 ml-3" data-toggle="modal" (click)="onUp(p.id)">
+            <i class="fa fa-edit"></i>update
+          </button>
+        </td>
       </tr>
 
     </tbody>

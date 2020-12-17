@@ -1,0 +1,27 @@
+<form [formGroup]="personForm" (ngSubmit) ="onUpdate()">
+    <!--<div class="form-group">  
+       <label for="id">ID</label>
+       <input type="text" class="form-control" id="id" formControlName="id" placeholder="Entrer l'identifiant">
+     </div>--> 
+     <div class="form-group">  
+       <label for="nom">Nom</label>
+       <input type="text" class="form-control" id="nom" [(ngModel)]="person.nom" name="nom" formControlName="nom" placeholder="Entrer le nom">
+     </div>
+     <div class="form-group">
+       <label for="fonction">fonction</label>
+       <input type="text" class="form-control" id="fonction" [(ngModel)]="person.fonction" formControlName="fonction" name="fonction" placeholder="Fonction">
+     </div>
+     <div class="form-group">
+         <label for="tel">Telephone</label>
+         <input type="number" class="form-control" id="tel" [(ngModel)]="person.tel" name="tel" formControlName="tel" placeholder="tel">
+       </div>
+     <div class="form-group">
+         <label for="sexe">Sexe</label>
+         <input type="text" class="form-control" id="sexe" [(ngModel)]="person.sexe" name="sexe" formControlName="sexe" placeholder="Another input">
+       </div>
+       <div class="form-group">
+         <label for="age">Age</label>
+         <input type="number" class="form-control" id="age" [(ngModel)]="person.age" name="age" formControlName="age" placeholder="Age">
+       </div>
+       <button  type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
+   </form>
