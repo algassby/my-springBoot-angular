@@ -19,7 +19,7 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   defaultSexe = "Homme";
   persons:Person[] = [];
-  ages=[100];
+  ages:number[] = new Array(100);
   sexes  = [
     { name:"Homme"},
     { name:"Femme"}

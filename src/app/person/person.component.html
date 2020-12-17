@@ -37,14 +37,22 @@
                 <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
               </select>
             </div>
+            <div class="form-group">
+              <select formControlName="age"  name="age" name="age">
+                <option [ngValue]="null" disabled>Choisir l'age</option>
+                <option *ngFor="let age of ages let i =index" [ngValue]="i+1">{{i+1}}</option>
+              </select>
+            </div>
+            <!----->
+            
           <!--<div class="form-group">
               <label for="sexe">Sexe</label>
               <input type="text" class="form-control" id="sexe" formControlName="sexe" placeholder="Another input">
-            </div>-->
+            </div>
             <div class="form-group">
               <label for="age">Age</label>
               <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age">
-            </div>
+            </div>-->
             <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
 
             <div class="modal-footer">

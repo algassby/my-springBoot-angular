@@ -13,7 +13,7 @@ export class UpdateComponent implements OnInit {
 
   personForm:FormGroup = new FormGroup({});
   defaultSexe = "Homme";
-  ages=[100];
+  ages :number[] = new Array(100);
   sexes  = [
     {name:"Homme"},
     {name:"Femme"}
@@ -77,6 +77,13 @@ export class UpdateComponent implements OnInit {
      this.update();
      this.router.navigate(['/person']);
   
+   }
+   getAge(){
+     for (let index = 1; index < 100; index++) {
+       const element = this.ages[index];
+       console.log(index);
+       
+     }
    }
     
 }
