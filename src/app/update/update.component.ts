@@ -12,6 +12,14 @@ import { PersonService } from '../service/person.service';
 export class UpdateComponent implements OnInit {
 
   personForm:FormGroup = new FormGroup({});
+  defaultSexe = "Homme";
+  ages=[100];
+  sexes  = [
+    {name:"Homme"},
+    {name:"Femme"}
+  ]
+   
+  
   id :number =0;
   person:Person  = new Person(0,'','',0,'',0);
   constructor(private service: PersonService,private router:Router, private formBuilder:FormBuilder,private route:ActivatedRoute) { }
@@ -42,7 +50,7 @@ export class UpdateComponent implements OnInit {
 
     });
   }
-  
+
   update(){
     this.id = this.person.id;
     const nom = this.personForm.get('nom')?.value;

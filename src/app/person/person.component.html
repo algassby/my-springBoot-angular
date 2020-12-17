@@ -31,10 +31,16 @@
               <label for="tel">Telephone</label>
               <input type="number" class="form-control" id="tel" formControlName="tel" placeholder="tel">
             </div>
-          <div class="form-group">
+            <div class="form-group">
+              <select formControlName="sexe" [ngModel]="defaultSexe" name="sexe">
+                <option [ngValue]="null" disabled>Select Sexe</option>
+                <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
+              </select>
+            </div>
+          <!--<div class="form-group">
               <label for="sexe">Sexe</label>
               <input type="text" class="form-control" id="sexe" formControlName="sexe" placeholder="Another input">
-            </div>
+            </div>-->
             <div class="form-group">
               <label for="age">Age</label>
               <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age">

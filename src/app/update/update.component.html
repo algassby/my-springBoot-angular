@@ -15,10 +15,12 @@
          <label for="tel">Telephone</label>
          <input type="number" class="form-control" id="tel" [(ngModel)]="person.tel" name="tel" formControlName="tel" placeholder="tel">
        </div>
-     <div class="form-group">
-         <label for="sexe">Sexe</label>
-         <input type="text" class="form-control" id="sexe" [(ngModel)]="person.sexe" name="sexe" formControlName="sexe" placeholder="Another input">
-       </div>
+       <div class="form-group">
+        <select formControlName="sexe" [(ngModel)]="person.sexe" name="tel" name="sexe">
+          <option [ngValue]="null" disabled>Select Sexe</option>
+          <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
+        </select>
+      </div>
        <div class="form-group">
          <label for="age">Age</label>
          <input type="number" class="form-control" id="age" [(ngModel)]="person.age" name="age" formControlName="age" placeholder="Age">

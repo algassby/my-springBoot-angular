@@ -17,7 +17,13 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   
 
+  defaultSexe = "Homme";
   persons:Person[] = [];
+  ages=[100];
+  sexes  = [
+    { name:"Homme"},
+    { name:"Femme"}
+  ]
   personForm:FormGroup = new FormGroup({});
 
 
