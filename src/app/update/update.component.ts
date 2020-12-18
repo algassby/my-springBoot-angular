@@ -85,5 +85,8 @@ export class UpdateComponent implements OnInit {
        
      }
    }
+   onBack(){
+    this.router.navigate(['/person']);
+   }
     
 }
