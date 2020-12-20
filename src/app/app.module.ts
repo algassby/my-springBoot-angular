@@ -13,6 +13,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SinglePersonComponent } from './single-person/single-person.component';
 import { UpdateComponent } from './update/update.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UpdateComponent } from './update/update.component';
     RouterModule,
     HttpClientModule, 
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     PersonService

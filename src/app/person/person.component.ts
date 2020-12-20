@@ -16,7 +16,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton') closebuttonU: any;
 
   
-
+  searchText :any;
   defaultSexe = "Homme";
   persons:Person[] = [];
   ages:number[] = new Array(100);
@@ -62,8 +62,8 @@ export class PersonComponent implements OnInit, OnDestroy {
   initForm(){
     this.personForm = this.formBuilder.group({
 
-      id:[''],
-      nom:['', Validators.required],
+      
+      nom:['', [Validators.required, Validators.minLength(3)]],
       fonction:['', Validators.required],
       tel:['', Validators.required],
       sexe:['', Validators.required],
@@ -134,5 +134,8 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.route.navigate(['/person','update',id]);
   }
 
+  get nom()  {
+    return this.personForm.get('nom');
+  } 
 
 }

@@ -49,7 +49,8 @@
          <label for="age">Age</label>
          <input type="number" class="form-control" id="age" [(ngModel)]="person.age" name="age" formControlName="age" placeholder="Age">
        </div>-->
-       <button  type="submit" class="btn btn-success mr-3" [disabled]="personForm.invalid">valider</button>
-       <button  type="submit" class="btn btn-success" (click)="onBack()" >Annuler</button>
+       
+       <button  type="submit" class="btn btn-danger mr-3" (click)="onBack()" >Annuler</button>
+       <button  type="submit" class="btn btn-success " [disabled]="personForm.invalid">valider</button>
    </form>
 </div>

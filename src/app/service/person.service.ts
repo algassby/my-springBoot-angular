@@ -30,7 +30,6 @@ export class PersonService {
     
     return this.httpClient.get(this.http+'/'+id);
   }
-
   update(person:Person, id:number):Observable<Object>{
     return this.httpClient.put(this.http+'/update/'+id, person);
   }

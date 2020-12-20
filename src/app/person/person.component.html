@@ -1,8 +1,11 @@
 
-<div class="">
+<!--<div class="">
     <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3" (click) = "onNew()">Add new</button>
-</div>
+</div>-->
 <!-- Button trigger modal -->
+<div class="search-hero">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  search by">
+</div>
 <button type="button" class="btn btn-primary mb-3 ml-3" data-toggle="modal" data-target="#modalAdd">
   <i class="fa fa-plus">Add new</i>
 </button>
@@ -92,7 +95,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of persons   let i = index">
+      <tr *ngFor="let p of persons  | filter:searchText; let i = index">
         <td>{{p.id}}</td>
         <td>{{p.nom}}</td>
         <td>{{p.fonction}}</td>
