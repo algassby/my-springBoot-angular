@@ -15,7 +15,6 @@ export class PersonComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton') closebutton: any;
   @ViewChild('closebutton') closebuttonU: any;
 
-  
   searchText :any;
   defaultSexe = "Homme";
   persons:Person[] = [];
