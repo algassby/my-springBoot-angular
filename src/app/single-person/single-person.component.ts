@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
 
@@ -59,5 +60,39 @@ export class SinglePersonComponent implements OnInit, OnDestroy {
       }
     
   }
+   //Sweet alert
+   tinyAlert(){
+    Swal.fire('Hey there!');
+  }
+  
+  successNotification(){
+    Swal.fire('Hi', 'We have been informed!', 'success')
+  }
+  
+  alertConfirmation(id:number){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This process is irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think'
+    }).then((result) => {
+      if (result.value) {
+        this.OnDelete(id);
+        Swal.fire(
+          'Removed!',
+          'Product removed successfully.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Product still in our database.)',
+          'error'
+        )
+      }
+    })
+  }  
 
 }

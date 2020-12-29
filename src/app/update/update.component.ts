@@ -78,6 +78,13 @@ export class UpdateComponent implements OnInit {
      this.router.navigate(['/person']);
   
    }
+   onUpdateReturnPerson(){
+    // const id = this.personForm.get('id')?.value;
+     this.update();
+     this.router.navigate(['/person',this.id]);
+  
+   }
+   
    getAge(){
      for (let index = 1; index < 100; index++) {
        const element = this.ages[index];

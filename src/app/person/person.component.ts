@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-person',
@@ -29,7 +30,8 @@ export class PersonComponent implements OnInit, OnDestroy {
 
 
   personSubscription :Subscription = new Subscription();
-  constructor(private service: PersonService,private route:Router, private formBuilder:FormBuilder,private router:ActivatedRoute ) { }
+  constructor(private service: PersonService,private route:Router, 
+    private formBuilder:FormBuilder,private router:ActivatedRoute ) { }
   ngOnDestroy(): void {
     this.personSubscription.unsubscribe();
   }
@@ -156,5 +158,39 @@ export class PersonComponent implements OnInit, OnDestroy {
       }
     
   }
+  //Sweet alert
+  tinyAlert(){
+    Swal.fire('Hey there!');
+  }
+  
+  successNotification(){
+    Swal.fire('Hi', 'We have been informed!', 'success')
+  }
+  
+  alertConfirmation(id:number){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This process is irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think'
+    }).then((result) => {
+      if (result.value) {
+        this.OnDelete(id);
+        Swal.fire(
+          'Removed!',
+          'Product removed successfully.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Product still in our database.)',
+          'error'
+        )
+      }
+    })
+  }   
 
 }
