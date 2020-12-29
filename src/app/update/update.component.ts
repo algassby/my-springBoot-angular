@@ -42,8 +42,8 @@ export class UpdateComponent implements OnInit {
     this.personForm = this.formBuilder.group({
 
       id:[''],
-      nom:['', Validators.required],
-      fonction:['', Validators.required],
+      nom:['', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
+      fonction:['', [Validators.required,Validators.maxLength(30), Validators.minLength(3)]],
       tel:['', Validators.required],
       sexe:['', Validators.required],
       age:['', Validators.required]
@@ -58,7 +58,7 @@ export class UpdateComponent implements OnInit {
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-    const person = new Person(0,nom, fonction, tel, sexe, age,);
+    //const person = new Person(0,nom, fonction, tel, sexe, age,);
     this.service.update(this.person, this.id).subscribe(
       data=>{
         console.log(data);

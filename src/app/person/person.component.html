@@ -103,7 +103,7 @@
     <tbody>
       <tr *ngFor="let p of persons  | filter:searchText; let i = index">
         <td>{{p.id}}</td>
-        <td>{{p.nom}}</td>
+        <td><span style="font-weight: bold;"  [ngStyle]="{'color':p.sexe === 'Homme' ? 'green' : 'purple' }">{{p.nom}}</span></td>
         <td>{{p.fonction}}</td>
         <td>{{p.tel}}</td>
         <td>{{p.age}}</td>

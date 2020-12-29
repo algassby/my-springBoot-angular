@@ -12,7 +12,10 @@ import { PersonService } from '../service/person.service';
 export class FormComponent implements OnInit {
 
   personForm:FormGroup = new  FormGroup({});
+  defaultSexe ="Homme";
+  ages :number[] = new Array(100);
   constructor(private service: PersonService,private route:Router, private formBuilder:FormBuilder) { }
+
 
   ngOnInit(): void {
     this.initForm();
@@ -20,13 +23,11 @@ export class FormComponent implements OnInit {
 
   initForm(){
     this.personForm = this.formBuilder.group({
-
-      nom:['', Validators.required],
-      fonction:['', Validators.required],
+      nom:['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
+      fonction:['', [Validators.required,Validators.maxLength(30), Validators.minLength(3)]],
       tel:['', Validators.required],
-      sexe:['', Validators.required],
+      sexe:['', [Validators.required]],
       age:['', Validators.required]
-
     });
   }
   onSave(){
@@ -37,10 +38,11 @@ export class FormComponent implements OnInit {
     const age = this.personForm.get('age')?.value;
     const person = new Person(0,nom, fonction, tel, sexe, age,);
 
-    this.service.create(person).subscribe(
+    this.service.create(person).subscribe(  
       data => console.log(data),
       error=> console.log(error)
     );
+    this.service.emitPersons();
     this.route.navigate(['/person']);
 
   }

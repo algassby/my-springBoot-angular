@@ -1,7 +1,9 @@
 <div class="container">
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Mettre à jour les informations</h5>
+    <h5 class="card-title">Mettre à jour les informations de 
+      <span  [ngStyle]="{'color':person.sexe === 'grey' ? '' : 'purple' }"><a [routerLink]="['/person',person.id]">{{person.nom}}</a></span>
+    </h5>
   </div>
 </div>
 <form [formGroup]="personForm" (ngSubmit) ="onUpdate()">

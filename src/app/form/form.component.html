@@ -1,24 +1,57 @@
+
+<div class="container" mt-5>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Mettre à jour les informations</h5>
+    </div>
+  </div>
 <form [formGroup]="personForm" (ngSubmit) ="onSave()">
-    <div class="form-group">
-      <label for="nom">Nom</label>
-      <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrer le nom">
+  <div class="form-group">
+    <label for="nom">Nom</label>
+    <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrer le nom">
+  </div>
+  <div class="form-group">
+    <label for="fonction">fonction</label>
+    <input type="text" class="form-control" id="fonction" formControlName="fonction" placeholder="Fonction">
+  </div>
+  <div class="form-group">
+      <label for="tel">Telephone</label>
+      <input type="number" class="form-control" id="tel" formControlName="tel" placeholder="tel">
     </div>
     <div class="form-group">
-      <label for="fonction">fonction</label>
-      <input type="text" class="form-control" id="fonction" formControlName="fonction" placeholder="Fonction">
+      <label for="sexe" class="mr-3">
+        <input class="" [(ngModel)]="defaultSexe" type="radio" value="Homme" formControlName="sexe" checked >
+          <span>Homme</span>
+      </label>
+      <label class="sexe">
+        <input type="radio" value="Femme" formControlName="sexe">
+          <span>Femme</span>
+      </label>
+    </div>
+    <!--
+    <div class="form-group">
+      <select formControlName="sexe" [ngModel]="defaultSexe" name="sexe">
+        <option [ngValue]="null" disabled>Select Sexe</option>
+        <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
+      </select>
+    </div>-->
+    <div class="form-group">
+      <select formControlName="age"  name="age" name="age">
+        <option [ngValue]="null" disabled>Choisir l'age</option>
+        <option *ngFor="let age of ages let i =index" [ngValue]="i+1">{{i+1}}</option>
+      </select>
+    </div>
+    <!----->
+    
+  <!--<div class="form-group">
+      <label for="sexe">Sexe</label>
+      <input type="text" class="form-control" id="sexe" formControlName="sexe" placeholder="Another input">
     </div>
     <div class="form-group">
-        <label for="tel">Telephone</label>
-        <input type="number" class="form-control" id="tel" formControlName="tel" placeholder="tel">
-      </div>
-    <div class="form-group">
-        <label for="sexe">Sexe</label>
-        <input type="text" class="form-control" id="sexe" formControlName="sexe" placeholder="Another input">
-      </div>
-      <div class="form-group">
-        <label for="age">Age</label>
-        <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age">
-      </div>
-      <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
-  </form>
-  
+      <label for="age">Age</label>
+      <input type="number" class="form-control" id="age" formControlName="age" placeholder="Age">
+    </div>-->
+   <button type="submit" class="btn btn-success" [disabled]="personForm.invalid">valider</button>
+
+</form>
+</div>

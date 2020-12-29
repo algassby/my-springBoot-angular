@@ -30,4 +30,8 @@ export class SinglePersonComponent implements OnInit {
     this.router.navigate(['/person']);
   }
 
+  onUp(id:number){
+    this.router.navigate(['/person','update',id]);
+  }
+
 }

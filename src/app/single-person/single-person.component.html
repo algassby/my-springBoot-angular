@@ -1,9 +1,24 @@
-<ul class="list-group">
-    <li class="list-group-item">{{person.id}}</li>
-    <li class="list-group-item">{{person.nom}}</li>
-    <li class="list-group-item">{{person.fonction}}</li>
-    <li class="list-group-item">{{person.age}}</li>
-    <li class="list-group-item">{{person.age}}</li>
-    <li class="list-group-item">{{person.tel}}</li>
-</ul>
-<button class="btn btn-success" type="button" (click)="onBack()">retour</button>
+
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-title ml-3 mt-3">
+
+                    <h4><span  [ngStyle]="{'color':person.sexe === 'grey' ? '' : 'purple' }"><a [routerLink]="['/person',person.id]">{{person.nom}}</a></span>
+            
+                    <button class="btn btn-success mr-4" type="button" style ="float: right;" (click)="onUp(person.id)">update</button></h4>
+               
+            
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><span>Numero: </span>{{person.id}}</li>
+                <!--<li class="list-group-item"><span>Nom: </span>{{person.nom}}</li>-->
+                <li class="list-group-item"><span>Sexe: </span>{{person.sexe}}</li>
+                <li class="list-group-item"><span>Age: </span>{{person.age}}</li>
+                <li class="list-group-item"><span>Poste: </span>{{person.fonction}}</li>
+                <li class="list-group-item"><span>Telephone: </span>{{person.tel}}</li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn btn-success mt-3 ml-3" type="button" (click)="onBack()">retour</button>
+</div>
