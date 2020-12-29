@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
 
@@ -8,10 +9,16 @@ import { PersonService } from '../service/person.service';
   templateUrl: './single-person.component.html',
   styleUrls: ['./single-person.component.css']
 })
-export class SinglePersonComponent implements OnInit {
+export class SinglePersonComponent implements OnInit, OnDestroy {
 
+  persons:Person[]= [];
+  personSubject =  new Subject<Person[]>();
   person:Person = new Person(0, '', '',0,'',0);
+  isDelete: boolean = false;
   constructor(private route: ActivatedRoute , private service:PersonService, private router:Router) { }
+  ngOnDestroy(): void {
+    this.personSubject.unsubscribe();
+  }
 
   ngOnInit(): void {
    this.person = new Person(0, '', '',0,'',0);
@@ -32,6 +39,25 @@ export class SinglePersonComponent implements OnInit {
 
   onUp(id:number){
     this.router.navigate(['/person','update',id]);
+  }
+
+  OnDelete(id:number){
+    return this.service.deleteById(id).subscribe(
+      (data:Object)=>{
+        for(let i = 0; i < this.persons.length; ++i){
+          if (this.persons[i].id === id) {
+              this.persons.splice(i,1);
+          }
+      }
+        this.isDelete =true;
+        console.log(data);
+        this.router.navigate(['/person']);
+        }),
+         (error:Error)=>{
+        this.isDelete = false;
+        console.log(error);
+      }
+    
   }
 
 }

@@ -4,6 +4,7 @@ import { PersonService } from '../service/person.service';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-person',
@@ -16,6 +17,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton') closebuttonU: any;
 
   searchText :any;
+  isDelete :boolean = false;
   defaultSexe = "Homme";
   persons:Person[] = [];
   ages:number[] = new Array(100);
@@ -136,5 +138,23 @@ export class PersonComponent implements OnInit, OnDestroy {
   get nom()  {
     return this.personForm.get('nom');
   } 
+  OnDelete(id:number){
+    return this.service.deleteById(id).subscribe(
+      (data:Object)=>{
+        for(let i = 0; i < this.persons.length; ++i){
+          if (this.persons[i].id === id) {
+              this.persons.splice(i,1);
+          }
+      }
+        this.isDelete =true;
+        console.log(data);
+        this.route.navigate(['/person']);
+        }),
+         (error:Error)=>{
+        this.isDelete = false;
+        console.log(error);
+      }
+    
+  }
 
 }

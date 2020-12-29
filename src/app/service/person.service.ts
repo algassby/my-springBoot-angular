@@ -33,4 +33,7 @@ export class PersonService {
   update(person:Person, id:number):Observable<Object>{
     return this.httpClient.put(this.http+'/update/'+id, person);
   }
+  deleteById(id:number){
+    return this.httpClient.delete(this.http+"/delete/"+id);
+  }
 }
