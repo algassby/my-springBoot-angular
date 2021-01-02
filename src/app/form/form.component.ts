@@ -24,6 +24,7 @@ export class FormComponent implements OnInit {
   initForm(){
     this.personForm = this.formBuilder.group({
       nom:['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
+      password:['',Validators.required],
       fonction:['', [Validators.required,Validators.maxLength(30), Validators.minLength(3)]],
       tel:['', Validators.required],
       sexe:['', [Validators.required]],
@@ -31,12 +32,17 @@ export class FormComponent implements OnInit {
     });
   }
   onSave(){
+    
     const nom = this.personForm.get('nom')?.value;
+    const password = this.personForm.get('password')?.value;
     const fonction = this.personForm.get('fonction')?.value;
+
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-    const person = new Person(0,nom, fonction, tel, sexe, age,);
+    const person = new Person(0,nom, password, fonction, tel, sexe, age,);
+    //person.role = ["user"];
+   // console.log(person.role);
 
     this.service.create(person).subscribe(  
       data => console.log(data),

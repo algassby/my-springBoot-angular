@@ -16,6 +16,10 @@
        <input type="text" class="form-control" id="nom" [(ngModel)]="person.nom" name="nom" formControlName="nom" placeholder="Entrer le nom">
      </div>
      <div class="form-group">
+      <label for="password">password</label>
+      <input type="text" class="form-control" id="password" [(ngModel)]="person.password" formControlName="password" placeholder="password">
+    </div>
+     <div class="form-group">
        <label for="fonction">fonction</label>
        <input type="text" class="form-control" id="fonction" [(ngModel)]="person.fonction" formControlName="fonction" name="fonction" placeholder="Fonction">
      </div>

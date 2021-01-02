@@ -1,3 +1,5 @@
+import { Role } from "./role";
+
 export class Person {
     /*id : Number = 0;
     nom : string = "";
@@ -6,8 +8,12 @@ export class Person {
     sexe : string = "";
     age: Number = 0;*/
 
-    constructor(public id:number,public nom:String, public fonction:String,public tel: number, public sexe:String,public age:number){
-
+     roles: String [] =[] ;
+   // public password:String = "";
+    constructor(public id:number, public nom:String, public password:String, public fonction:String,public tel: number, public sexe:String,public age:number){
+        this.roles =[""];
+        
+        
     }
    
     

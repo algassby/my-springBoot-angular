@@ -65,8 +65,8 @@ export class PersonComponent implements OnInit, OnDestroy {
   initForm(){
     this.personForm = this.formBuilder.group({
 
-      
       nom:['', [Validators.required, Validators.minLength(3)]],
+      password :['',Validators.required],
       fonction:['', Validators.required],
       tel:['', Validators.required],
       sexe:['', Validators.required],
@@ -77,12 +77,16 @@ export class PersonComponent implements OnInit, OnDestroy {
   onSave(){
    
     const nom = this.personForm.get('nom')?.value;
+    const password = this.personForm.get('password')?.value;
     const fonction = this.personForm.get('fonction')?.value;
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-    const person = new Person(0,nom, fonction, tel, sexe, age,);
+   
+    
+    const person = new Person(0,nom, password, fonction, tel, sexe, age,);
 
+   console.log(person);
     //this.personForm.patchValue(this.service.findById(id));
 
     this.service.create(person).subscribe(
@@ -93,6 +97,7 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.closebutton.nativeElement.click();
     this.findAll();
     //this.route.navigate(['/person']);
+    //this.service.emitPersons();
 
   }
 
