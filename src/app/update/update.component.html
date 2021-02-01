@@ -37,6 +37,7 @@
             <span>Femme</span>
         </label>
       </div>
+      
        <!--
        <div class="form-group">
         <select formControlName="sexe" [(ngModel)]="person.sexe" name="tel" name="sexe">
@@ -49,6 +50,14 @@
           <option [ngValue]="null" disabled>Choisir l'age</option>
           <option *ngFor="let age of ages let i =index" [ngValue]="i+1">{{i+1}}</option>
         </select>
+      </div>
+      <div class="form-group">
+        <div *ngFor="let role of roles; let i=index">
+          <label>
+            <input type="checkbox" [value]="role.name" (change)="onCheckboxChange($event)" />
+            {{role.name}}
+          </label>
+        </div>
       </div>
       <!--
        <div class="form-group">

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Person } from '../model/person';
+import { User } from '../model/user';
 
 
 
@@ -30,7 +31,7 @@ export class PersonService {
     
     return this.httpClient.get(this.http+'/'+id);
   }
-  update(person:Person, id:number):Observable<Object>{
+  update(person:User, id:number):Observable<Object>{
     return this.httpClient.put(this.http+'/update/'+id, person);
   }
   deleteById(id:number){

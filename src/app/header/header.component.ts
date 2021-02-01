@@ -28,6 +28,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faBell as faRegularBell, faSmileBeam, faSmileWink} from '@fortawesome/free-regular-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { TokenStorageService } from '../auth/token-storage.service';
+import { Router } from '@angular/router';
 // import {fas} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -37,7 +39,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(library:FaIconLibrary) { 
+  constructor(library:FaIconLibrary, private tokenStorage:TokenStorageService, private router:Router) { 
     library.addIcons(faSmileWinkSolid, faSmileBeanSolid,
       faSmileWink, faSmileBeam, faEnvelopeOpen, faCloud,
       faMobile, faSquare, faSpinner, faCircle,
@@ -47,7 +49,14 @@ export class HeaderComponent implements OnInit {
       faSolidBell, faRegularBell, faCamera, faBan, faHome);
   }
 
+  isLog = false;
   ngOnInit(): void {
+  }
+  onLogout(){
+    this.tokenStorage.signOut();
+    this.isLog = false;
+    this.router.navigate(['/login']);
+
   }
 
 }

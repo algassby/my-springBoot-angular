@@ -113,6 +113,7 @@
         <td>{{p.tel}}</td>
         <td>{{p.age}}</td>
         <td>{{p.sexe}}</td>
+        <td *ngFor="let role of p.roles">{{role.name}}</td>
         <td><button class="btn btn-success" (click)="onView(p.id)"><i class="fa fa-eye"></i>voir</button>
           <button type="button" class="btn btn-success mr-3 ml-3" data-toggle="modal" (click)="onUp(p.id)">
             <i class="fa fa-edit"></i>update

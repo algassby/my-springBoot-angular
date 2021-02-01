@@ -9,11 +9,15 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonService } from './service/person.service';
 import { RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SinglePersonComponent } from './single-person/single-person.component';
 import { UpdateComponent } from './update/update.component';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import { Interceptor } from './auth/Interceptor';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth/auth.service';
+import { TokenStorageService } from './auth/token-storage.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     FormComponent,
     HeaderComponent,
     SinglePersonComponent,
-    UpdateComponent
+    UpdateComponent,
+    LoginComponent
   
   ],
   imports: [
@@ -36,7 +41,11 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     Ng2SearchPipeModule
   ],
   providers: [
-    PersonService
+    PersonService,
+    Interceptor,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true } ,
+    AuthService,
+    TokenStorageService
   ],
   bootstrap: [AppComponent]
 })
