@@ -19,21 +19,20 @@ export class UpdateComponent implements OnInit {
     {name:"Homme"},
     {name:"Femme"}
   ]
-  roles:any[]=[
+  roles:any=[
     {
-      id:1, name:"ROLE_ADMIN"
+      id:1, name:"ADMIN",value:"ROLE_ADMIN"
     },
     {
-      id:2, name:"ROLE_SUPER_ADMIN"
+      id:2, name:"SUPER",value:"ROLE_SUPER_ADMIN"
     },
     {
-      id:1, name:"ROLE_USER"
+      id:1, name:"USER",value:"ROLE_USER"
     },
   ]
    
-  
   id :number =0;
-  person:User  = new User(0,'','','',0,'',0, new Array());
+  person:User  = new User(0,'','','',0,'',0,'','', new Array());
   constructor(private service: PersonService,private router:Router, private formBuilder:FormBuilder,private route:ActivatedRoute) { 
    
     
@@ -63,14 +62,16 @@ export class UpdateComponent implements OnInit {
       tel:['', Validators.required],
       sexe:['', Validators.required],
       age:['', Validators.required],
-      checkArray: this.formBuilder.array([])
+      email:['',[Validators.required, Validators.email]],
+      username:['', Validators.required],
+      roles: this.formBuilder.array([])
       
 
     });
     
   }
   onCheckboxChange(e:any) {
-    const checkArray: FormArray = this.personForm.get('checkArray') as FormArray;
+    const checkArray: FormArray = this.personForm.get('roles') as FormArray;
   
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -91,13 +92,17 @@ export class UpdateComponent implements OnInit {
     const nom = this.personForm.get('nom')?.value;
     const password = this.personForm.get('password')?.value;
     const fonction = this.personForm.get('fonction')?.value;
+    
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-    const checkArray:any = this.personForm.get('checkArray')?.value;
+    const email = this.personForm.get('email')?.value;
+    const username = this.personForm.get('username')?.value;
+   
+    const roles:any = this.personForm.get('roles')?.value;
     
     //const person = new Person(0,nom, fonction, tel, sexe, age,);
-    this.person = new User(this.id,nom,password, fonction, tel, sexe, age,checkArray);
+    this.person = new User(this.id,nom,password, fonction, tel, sexe, age, email, username,roles);
     this.service.update(this.person, this.id).subscribe(
       data=>{
         console.log(data);
@@ -108,14 +113,19 @@ export class UpdateComponent implements OnInit {
       }
     );
     console.log(this.person);
+    this.router.navigate(['/person']);
     this.service.emitPersons();
   }
 
   onUpdate(){
     // const id = this.personForm.get('id')?.value;
      this.update();
-     this.router.navigate(['/person']);
-  
+    
+   }
+
+   getRoles():FormArray{
+     return this.personForm.get('roles') as FormArray;
+
    }
    onUpdateReturnPerson(){
     // const id = this.personForm.get('id')?.value;

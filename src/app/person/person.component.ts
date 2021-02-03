@@ -17,11 +17,14 @@ export class PersonComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton') closebutton: any;
   @ViewChild('closebutton') closebuttonU: any;
 
+  nom : String ="";
   searchText :any;
   isDelete :boolean = false;
   defaultSexe = "Homme";
   persons:Person[] = [];
   ages:number[] = new Array(100);
+  currentUser?: Person ;
+  currentIndex = -1;
   sexes  = [
     { name:"Homme"},
     { name:"Femme"}
@@ -62,6 +65,30 @@ export class PersonComponent implements OnInit, OnDestroy {
     );
     //this.service.emitPersons();
   }
+
+  searchByName(){
+    this.service.findByName(this.nom).subscribe(data=>{
+      console.log(data);
+      this.persons = data;
+    },
+    (error)=>{
+      console.log(error);
+    }
+
+    );
+  }
+
+  refreshList(): void {
+    this.findAll();
+    this.currentUser = undefined;
+    this.currentIndex = -1;
+  }
+
+  setActiveUser(user: Person, index: number): void {
+    this.currentUser = user;
+    this.currentIndex = index;
+  }
+  
   initForm(){
     this.personForm = this.formBuilder.group({
 
@@ -70,23 +97,27 @@ export class PersonComponent implements OnInit, OnDestroy {
       fonction:['', Validators.required],
       tel:['', Validators.required],
       sexe:['', Validators.required],
-      age:['', Validators.required]
+      age:['', Validators.required],
+      email:['',[Validators.required, Validators.email]],
+      username:['', Validators.required]
 
     });
   }
   onSave(){
-   
+
     const nom = this.personForm.get('nom')?.value;
     const password = this.personForm.get('password')?.value;
+    const email = this.personForm.get('email')?.value;
+    const username = this.personForm.get('username')?.value;
     const fonction = this.personForm.get('fonction')?.value;
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-   
     
-    const person = new Person(0,nom, password, fonction, tel, sexe, age,);
+    
+    const person = new Person(0,nom, password, fonction, tel, sexe, age,email,username);
 
-   console.log(person);
+    console.log(person);
     //this.personForm.patchValue(this.service.findById(id));
 
     this.service.create(person).subscribe(
@@ -142,9 +173,6 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.route.navigate(['/person','update',id]);
   }
 
-  get nom()  {
-    return this.personForm.get('nom');
-  } 
   OnDelete(id:number){
     return this.service.deleteById(id).subscribe(
       (data:Object)=>{

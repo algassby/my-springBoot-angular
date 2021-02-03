@@ -28,7 +28,9 @@ export class FormComponent implements OnInit {
       fonction:['', [Validators.required,Validators.maxLength(30), Validators.minLength(3)]],
       tel:['', Validators.required],
       sexe:['', [Validators.required]],
-      age:['', Validators.required]
+      age:['', Validators.required],
+      email:['',[Validators.required, Validators.email]],
+      username:['', Validators.required],
     });
   }
   onSave(){
@@ -40,7 +42,10 @@ export class FormComponent implements OnInit {
     const tel = this.personForm.get('tel')?.value;
     const sexe = this.personForm.get('sexe')?.value;
     const age = this.personForm.get('age')?.value;
-    const person = new Person(0,nom, password, fonction, tel, sexe, age,);
+    const email = this.personForm.get('email')?.value;
+    const username = this.personForm.get('username')?.value;
+   
+    const person = new Person(0,nom, password, fonction, tel, sexe, age,email,username);
     //person.role = ["user"];
    // console.log(person.role);
 

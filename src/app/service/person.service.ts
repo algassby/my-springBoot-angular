@@ -23,6 +23,9 @@ export class PersonService {
   findAll():Observable<any> {
     return  this.httpClient.get(this.http);
   }
+  findByName(nom:String):Observable<any> {
+    return  this.httpClient.get(this.http+"/byName?nom="+nom);
+  }
   create(person: Person):Observable<Object>{
     return this.httpClient.post(this.http+'/create', person);
   }

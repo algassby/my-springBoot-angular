@@ -14,7 +14,7 @@ export class SinglePersonComponent implements OnInit, OnDestroy {
 
   persons:Person[]= [];
   personSubject =  new Subject<Person[]>();
-  person:Person = new Person(0,'', '', '',0,'',0);
+  person:Person = new Person(0,'', '', '',0,'',0,'','');
   isDelete: boolean = false;
   constructor(private route: ActivatedRoute , private service:PersonService, private router:Router) { }
   ngOnDestroy(): void {
@@ -22,7 +22,7 @@ export class SinglePersonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-   this.person = new Person(0,'' ,'', '',0,'',0);
+   this.person = new Person(0,'' ,'', '',0,'',0,'','');
     const id = this.route.snapshot.params['id'];
     this.service.findById(+id).subscribe(
       (data:any) =>{

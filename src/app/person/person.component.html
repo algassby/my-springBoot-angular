@@ -1,4 +1,5 @@
 
+  
 <!--<div class="">
     <button class="btn btn-primary mt-3 mr-3 ml-3 mb-3" (click) = "onNew()">Add new</button>
 </div>-->
@@ -15,6 +16,8 @@
 <button type="button" class="btn btn-primary mb-3 ml-3" data-toggle="modal" data-target="#modalAdd">
   <i class="fa fa-plus">Add new</i>
 </button>
+
+
 
 <!-- Modal add -->
 <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,6 +38,14 @@
          <div class="form-group">
             <label for="password">Password</label>
             <input type="text" class="form-control" id="password" formControlName="password" placeholder="Entrer password">
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" name="email" placeholder="email">
+          </div>
+          <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" class="form-control" id="username"  formControlName="username" name="username" placeholder="username">
           </div>
           <div class="form-group">
             <label for="fonction">Fonction</label>
@@ -128,3 +139,64 @@
       </tr>
     </tbody>
   </table>
+
+
+
+  <!--modal search and add-->
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="list row">
+          <div class="col-md-8">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name"
+                [(ngModel)]="nom"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="searchByName()"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4>users list</h4>
+            <ul class="list-group">
+              <li
+                class="list-group-item"
+                *ngFor="let person of persons; let i = index"
+                [class.active]="i == currentIndex"
+                (click)="setActiveUser(person, i)"
+               >
+                {{ person.nom }}
+              </li>
+            </ul>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

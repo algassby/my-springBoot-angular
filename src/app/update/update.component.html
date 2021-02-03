@@ -24,6 +24,14 @@
        <input type="text" class="form-control" id="fonction" [(ngModel)]="person.fonction" formControlName="fonction" name="fonction" placeholder="Fonction">
      </div>
      <div class="form-group">
+      <label for="email">email</label>
+      <input type="text" class="form-control" id="email" [(ngModel)]="person.email" formControlName="email" name="fonction" placeholder="email">
+    </div>
+    <div class="form-group">
+      <label for="username">username</label>
+      <input type="text" class="form-control" id="email" [(ngModel)]="person.username" formControlName="username" name="username" placeholder="username">
+    </div>
+     <div class="form-group">
          <label for="tel">Telephone</label>
          <input type="number" class="form-control" id="tel" [(ngModel)]="person.tel" name="tel" formControlName="tel" placeholder="tel">
        </div>
@@ -53,7 +61,7 @@
       </div>
       <div class="form-group">
         <div *ngFor="let role of roles; let i=index">
-          <label>
+          <label >
             <input type="checkbox" [value]="role.name" (change)="onCheckboxChange($event)" />
             {{role.name}}
           </label>
@@ -64,7 +72,6 @@
          <label for="age">Age</label>
          <input type="number" class="form-control" id="age" [(ngModel)]="person.age" name="age" formControlName="age" placeholder="Age">
        </div>-->
-       
        <button  type="submit" class="btn btn-danger mr-3" (click)="onBack()" >Annuler</button>
        <button  type="submit" class="btn btn-success " [disabled]="personForm.invalid">valider</button>
    </form>
