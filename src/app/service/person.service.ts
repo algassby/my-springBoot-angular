@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Person } from '../model/person';
 import { User } from '../model/user';
 
@@ -14,20 +16,36 @@ export class PersonService {
   persons:Person[]= [];
   personSubject =  new Subject<Person[]>();
 
-  http = "http://127.0.0.1:8080/demo-0.0.1-SNAPSHOT/person";
+  http = `${environment.baseUrl}/person`;
   constructor(private httpClient:HttpClient) { }
 
   emitPersons(){
     this.personSubject.next(this.persons);
   }
   findAll():Observable<any> {
-    return  this.httpClient.get(this.http);
+    return  this.httpClient.get<any[]>(this.http).pipe(
+      // map((res: any[]) => {
+      //   const data = res.map(obj => ({
+      //     imageName: `data:image/jpg;base64,${obj.ImageName}`,
+         
+      //   }));
+      //   return data;
+      // })
+      )
+    // .pipe(map((response: any) => 
+    // // imageName = JSON.stringify(response.imageName)
+    //   response.json()
+    // ));
   }
-  findByName(nom:String):Observable<any> {
+  findByName(nom:string):Observable<any> {
     return  this.httpClient.get(this.http+"/byName?nom="+nom);
   }
   create(person: Person):Observable<Object>{
     return this.httpClient.post(this.http+'/create', person);
+  }
+
+  createPerson(formData:FormData):Observable<Object>{
+    return this.httpClient.post(`${this.http}/create`, formData);
   }
 
   findById(id:number):Observable<Object>{

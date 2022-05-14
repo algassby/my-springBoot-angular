@@ -32,6 +32,10 @@
       <div class="modal-body">
         <form [formGroup]="personForm" (ngSubmit) ="onSave()">
           <div class="form-group">
+            <label class="btn btn-default p-0">
+              <input type="file" accept="image/*" (change)="selectFile($event)"/>
+          </label>
+          <img [src]="imgURL" height="200" width="200" *ngIf="imgURL">
             <label for="nom">Nom</label>
             <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrer le nom">
           </div>
@@ -107,6 +111,7 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">Image</th>
         <th scope="col"> NOM</th>
         <th scope="col">FONCTION</th>
         <th scope="col">TELELEPHONE</th>
@@ -118,6 +123,8 @@
     <tbody>
       <tr *ngFor="let p of persons  | filter:searchText; let i = index">
         <td>{{p.id}}</td>
+        <td><img *ngIf="p.imageName" src="data:image/jpg;base64,{{p.imageName}}" 
+          alt="Place image title" height="100px" width="100px"></td>
         <td><a [routerLink] = "['/person',p.id]"><span style="font-weight: bold;"  [ngStyle]="{'color':p.sexe === 'Homme' ? 'green' : 'purple' }">
           {{p.nom}}</span></a></td>
         <td>{{p.fonction}}</td>
@@ -161,7 +168,12 @@
       <div class="modal-body">
         <div class="list row">
           <div class="col-md-8">
+
+            
             <div class="input-group mb-3">
+              <select class="form-control" name="" id="">
+                <option value="nom.name"   [ngValue]="nom.name"  *ngFor="let nom of noms">{{nom.name}}</option>
+              </select>
               <input
                 type="text"
                 class="form-control"
@@ -188,7 +200,7 @@
                 [class.active]="i == currentIndex"
                 (click)="setActiveUser(person, i)"
                >
-                {{ person.nom }}
+                {{person.nom}}
               </li>
             </ul>
           </div>

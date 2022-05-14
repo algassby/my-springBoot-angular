@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-8">
+        <label class="btn btn-default p-0">
+            <input type="file" accept="image/*" (change)="selectFile($event)"/>
+        </label>
+        <img [src]="imgURL" height="200" width="200" *ngIf="imgURL">
+    </div>
+
+    <div class="col-4">
+        <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+            Upload file
+        </button>
+        
+    </div>
+</div>
+<div *ngIf="message" class="alert alert-success" role="alert">{{ message }}</div>
+<div *ngIf="errorMsg" class="alert alert-danger" role="alert">{{ errorMsg }}</div>
+<div class="row">
+    <div class="col-8">
+        <label class="btn btn-default p-0">
+            <input type="text" (change)="getImageFromService($event)"/>
+        </label>
+        <img [src]="imgURL" height="200" width="200" *ngIf="imgURL && submitted">
+        <img class="card-img-top img-responsive"
+        src = "{{this.newFile}}" 
+        style = "height :200px;width:fil-content"
+       alt="photo">
+       <img [src]="getSantizeUrl(imageToShow)"
+     alt="Place image title"
+     *ngIf="!isImageLoading">
+    </div>
+
+    
+</div>
+
+<div class="container">
+    <u>
+        <li *ngFor="let fileInfo of fileInfos">
+            <img [src]="fileInfo.fileUrl">
+        </li>
+    </u>
+
+</div>
+

@@ -18,6 +18,9 @@ import { Interceptor } from './auth/Interceptor';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth/auth.service';
 import { TokenStorageService } from './auth/token-storage.service';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { TokenStorageService } from './auth/token-storage.service';
     HeaderComponent,
     SinglePersonComponent,
     UpdateComponent,
-    LoginComponent
+    LoginComponent,
+    UploadFileComponent,
+    ParentComponent,
+    ChildComponent
   
   ],
   imports: [

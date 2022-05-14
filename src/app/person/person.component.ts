@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Type, ViewChild } from '@angular/core';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
 import { Observable, Subscription } from 'rxjs';
@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
 import Swal from 'sweetalert2';
+import { UploadFileService } from '../service/upload-file.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-person',
@@ -17,7 +19,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton') closebutton: any;
   @ViewChild('closebutton') closebuttonU: any;
 
-  nom : String ="";
+  nom : string ="";
   searchText :any;
   isDelete :boolean = false;
   defaultSexe = "Homme";
@@ -29,12 +31,26 @@ export class PersonComponent implements OnInit, OnDestroy {
     { name:"Homme"},
     { name:"Femme"}
   ]
+  noms= [
+    {name:"barry"},
+    {name:"barrio"},
+    {name:"chala"},
+    {name:"barya"},
+    {name:"miranda"},
+    {name:"chris jone"}
+  ];
   personForm:FormGroup = new FormGroup({});
 
 
   personSubscription :Subscription = new Subscription();
+  currentFile: any;
+  selectedFiles: any;
+  message ='';
+  imagePath: any;
+  imgURL :  any;
+ 
   constructor(private service: PersonService,private route:Router, 
-    private formBuilder:FormBuilder,private router:ActivatedRoute ) { }
+    private formBuilder:FormBuilder,private router:ActivatedRoute,private uploadService:UploadFileService,private sanitizer:DomSanitizer ) { }
   ngOnDestroy(): void {
     this.personSubscription.unsubscribe();
   }
@@ -42,6 +58,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
 
+    this.noms.forEach(item=>this.nom=item.name);
     this.personSubscription = this.service.personSubject.subscribe(
       (data:any[])=>{
         this.persons = data;
@@ -57,6 +74,9 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.service.findAll().subscribe(data=>{
       console.log(data);
       this.persons = data;
+      // this.persons.map(person=>{
+      //  this.getImage(person);
+      // })
     },
     (error)=>{
       console.log(error);
@@ -67,6 +87,8 @@ export class PersonComponent implements OnInit, OnDestroy {
   }
 
   searchByName(){
+    
+    //nom = this.nom;
     this.service.findByName(this.nom).subscribe(data=>{
       console.log(data);
       this.persons = data;
@@ -105,28 +127,38 @@ export class PersonComponent implements OnInit, OnDestroy {
   }
   onSave(){
 
-    const nom = this.personForm.get('nom')?.value;
-    const password = this.personForm.get('password')?.value;
-    const email = this.personForm.get('email')?.value;
-    const username = this.personForm.get('username')?.value;
-    const fonction = this.personForm.get('fonction')?.value;
-    const tel = this.personForm.get('tel')?.value;
-    const sexe = this.personForm.get('sexe')?.value;
-    const age = this.personForm.get('age')?.value;
+    // console.log(this.personForm.value);
+    // const nom = this.personForm.get('nom')?.value;
+    // const password = this.personForm.get('password')?.value;
+    // const email = this.personForm.get('email')?.value;
+    // const username = this.personForm.get('username')?.value;
+    // const fonction = this.personForm.get('fonction')?.value;
+    // const tel = this.personForm.get('tel')?.value;
+    // const sexe = this.personForm.get('sexe')?.value;
+    // const age = this.personForm.get('age')?.value;
     
     
-    const person = new Person(0,nom, password, fonction, tel, sexe, age,email,username);
+    // const person = new Person(0,nom, password, fonction, tel, sexe, age,email,username);
 
-    console.log(person);
-    //this.personForm.patchValue(this.service.findById(id));
-
-    this.service.create(person).subscribe(
-      data => console.log(data),
+    // console.log(person);
+    //this.personForm.patchValue(this.service.findB{yId(id));
+    const formData = new FormData();
+    
+    if(this.currentFile!==null){
+      formData.append('file',this.currentFile,this.currentFile.name);
+    }
+    formData.append('person',new Blob([JSON.stringify(this.personForm.value)], {type: 'application/json'}));
+    this.service.createPerson(formData).subscribe(
+      data=>{
+        console.log(data);
+        this.findAll();
+      }
+       ,
       error=> console.log(error)
     );
     
     this.closebutton.nativeElement.click();
-    this.findAll();
+   
     //this.route.navigate(['/person']);
     //this.service.emitPersons();
 
@@ -191,6 +223,50 @@ export class PersonComponent implements OnInit, OnDestroy {
       }
     
   }
+  /**
+   * 
+   * @param event s
+   * @returns 
+   */
+  selectFile(event: any): void {
+    if (event.target.files.length > 0){
+      this.currentFile = event.target.files[0];
+      
+  }
+}
+
+getSafeImage(imgURL:any){
+  // var reader = new FileReader();
+  // let img = null as any;
+  //    // this.imagePath = file;
+  //     reader.readAsDataURL(new Blob([imgURL])); 
+  //     reader.onload = (_event) => { 
+  //       img = reader.result; 
+        
+  //     }
+  return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64'+imgURL.base64string);
+}
+
+getImage(event:string) {
+  let newFile = null as any ;
+  let imgURL = null as any;
+  this.uploadService.getData(event).subscribe(
+    response =>{
+      newFile = response;
+      console.log(newFile);
+      var reader = new FileReader();
+    
+     // this.imagePath = file;
+      reader.readAsDataURL(newFile); 
+      reader.onload = (_event) => { 
+         imgURL = reader.result; 
+        
+      }
+      this.sanitizer.bypassSecurityTrustUrl(imgURL)
+    }
+   );
+ 
+}
   //Sweet alert
   tinyAlert(){
     Swal.fire('Hey there!');
