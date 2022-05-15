@@ -69,13 +69,6 @@
                   <span>Femme</span>
               </label>
             </div>
-            <!--
-            <div class="form-group">
-              <select formControlName="sexe" [ngModel]="defaultSexe" name="sexe">
-                <option [ngValue]="null" disabled>Select Sexe</option>
-                <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
-              </select>
-            </div>-->
             <div class="form-group">
               <select formControlName="age"  name="age" name="age">
                 <option [ngValue]="null" disabled>Choisir l'age</option>
@@ -106,7 +99,7 @@
     </div>
   </div>
 </div>
-
+<!-- <app-single-person [currentUserDetails]="person"></app-single-person> -->
 <table class="table">
     <thead>
       <tr>

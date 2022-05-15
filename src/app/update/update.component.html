@@ -7,10 +7,6 @@
   </div>
 </div>
 <form [formGroup]="personForm" (ngSubmit) ="onUpdateReturnPerson()">
-    <!--<div class="form-group">  
-       <label for="id">ID</label>
-       <input type="text" class="form-control" id="id" formControlName="id" placeholder="Entrer l'identifiant">
-     </div>--> 
      <div class="form-group">  
        <label for="nom">Nom</label>
        <input type="text" class="form-control" id="nom" [(ngModel)]="person.nom" name="nom" formControlName="nom" placeholder="Entrer le nom">
@@ -45,14 +41,7 @@
             <span>Femme</span>
         </label>
       </div>
-      
-       <!--
-       <div class="form-group">
-        <select formControlName="sexe" [(ngModel)]="person.sexe" name="tel" name="sexe">
-          <option [ngValue]="null" disabled>Select Sexe</option>
-          <option *ngFor="let sexe of sexes" [ngValue]="sexe.name">{{sexe.name}}</option>
-        </select>
-      </div>-->
+    
       <div class="form-group">
         <select formControlName="age" [(ngModel)]="person.age" name="age" name="age">
           <option [ngValue]="null" disabled>Choisir l'age</option>
@@ -67,11 +56,8 @@
           </label>
         </div>
       </div>
-      <!--
-       <div class="form-group">
-         <label for="age">Age</label>
-         <input type="number" class="form-control" id="age" [(ngModel)]="person.age" name="age" formControlName="age" placeholder="Age">
-       </div>-->
+     
+      <!-- <app-update-form (user)="user = $event"></app-update-form> -->
        <button  type="submit" class="btn btn-danger mr-3" (click)="onBack()" >Annuler</button>
        <button  type="submit" class="btn btn-success " [disabled]="personForm.invalid">valider</button>
    </form>

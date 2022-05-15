@@ -21,6 +21,7 @@ import { TokenStorageService } from './auth/token-storage.service';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
+import { UpdateFormComponent } from './update-form/update-form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ChildComponent } from './child/child.component';
     LoginComponent,
     UploadFileComponent,
     ParentComponent,
-    ChildComponent
+    ChildComponent,
+    UpdateFormComponent
   
   ],
   imports: [

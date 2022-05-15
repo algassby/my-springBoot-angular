@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -13,6 +13,8 @@ import { PersonService } from '../service/person.service';
 export class SinglePersonComponent implements OnInit, OnDestroy {
 
   persons:Person[]= [];
+  @Output() public userEdit  = new EventEmitter<Person>();
+  @Input("currentUserDetails") currentUserDetails :any;
   personSubject =  new Subject<Person[]>();
   person:Person = new Person(0,'', '', '',0,'',0,'','');
   isDelete: boolean = false;
@@ -36,6 +38,9 @@ export class SinglePersonComponent implements OnInit, OnDestroy {
 
   onBack(){
     this.router.navigate(['/person']);
+  }
+  emitUser(){
+    this.userEdit.emit(this.person);
   }
 
   onUp(id:number){

@@ -1,2 +1,7 @@
-<p> Mon amie Justine a {{friendAge}} ans</p>
-<button type="button" (click)="eventName()">my friend's name</button>
+<p> Mon amie Justine a {{friendAge}} ans</p> <br/>
+<p>Et son numero de tel est : {{phoneNumber}}</p>
+<p>{{sexeForm.value}}</p>
+<div class="text-center">
+    <input type="text" [formControl]="sexeForm" class="form-group">
+</div>
+<button type="button" (click)="emitSexe()">my friend's name</button>

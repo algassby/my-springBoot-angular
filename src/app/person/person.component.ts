@@ -18,6 +18,7 @@ export class PersonComponent implements OnInit, OnDestroy {
 
   @ViewChild('closebutton') closebutton: any;
   @ViewChild('closebutton') closebuttonU: any;
+  currentUserDetails : any;
 
   nom : string ="";
   searchText :any;
@@ -26,6 +27,7 @@ export class PersonComponent implements OnInit, OnDestroy {
   persons:Person[] = [];
   ages:number[] = new Array(100);
   currentUser?: Person ;
+  person:any;
   currentIndex = -1;
   sexes  = [
     { name:"Homme"},
@@ -55,7 +57,9 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.personSubscription.unsubscribe();
   }
 
-  
+  getUserDetails(person:Person){
+     person = this.currentUserDetails;
+  }
   ngOnInit(): void {
 
     this.noms.forEach(item=>this.nom=item.name);

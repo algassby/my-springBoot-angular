@@ -52,7 +52,7 @@ export class PersonService {
     
     return this.httpClient.get(this.http+'/'+id);
   }
-  update(person:User, id:number):Observable<Object>{
+  update(person:FormData, id:number):Observable<Object>{
     return this.httpClient.put(this.http+'/update/'+id, person);
   }
   deleteById(id:number){

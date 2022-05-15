@@ -1,5 +1,6 @@
 
 <div class="container mt-3">
+    <button type="button" (click)="emitUser()">Check a user</button>
     <div class="card">
         <div class="card-title ml-3 mt-3">
             <h4><span  [ngStyle]="{'color':person.sexe === 'grey' ? '' : 'purple' }"><a [routerLink]="['/person',person.id]">{{person.nom}}</a></span>

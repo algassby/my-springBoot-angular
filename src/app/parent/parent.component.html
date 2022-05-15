@@ -4,7 +4,7 @@
 <div>
     <h2>{{friend}}</h2>
     <!-- <app-child (friendName)="friend = $event"></app-child> -->
-    <app-child (friendName)="friend = $event" [parentData]="friendAge">
+    <app-child (friendName)="friend = $event" [parentData]="friendAge" [phoneNumber]="phoneNumber" (sexe)="sexeValue = $event">
 
     </app-child>
 </div>

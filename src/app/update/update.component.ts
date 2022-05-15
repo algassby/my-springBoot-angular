@@ -33,6 +33,7 @@ export class UpdateComponent implements OnInit {
    
   id :number =0;
   person:User  = new User(0,'','','',0,'',0,'','', new Array());
+  user : any;
   constructor(private service: PersonService,private router:Router, private formBuilder:FormBuilder,private route:ActivatedRoute) { 
    
     
@@ -88,6 +89,7 @@ export class UpdateComponent implements OnInit {
   }
  
   update(){
+    this.user = new FormData();
     this.id = this.person.id;
     const nom = this.personForm.get('nom')?.value;
     const password = this.personForm.get('password')?.value;
@@ -100,13 +102,10 @@ export class UpdateComponent implements OnInit {
     const username = this.personForm.get('username')?.value;
    
     const roles:any = this.personForm.get('roles')?.value;
-    
-    //const person = new Person(0,nom, fonction, tel, sexe, age,);
-    this.person = new User(this.id,nom,password, fonction, tel, sexe, age, email, username,roles);
-    this.service.update(this.person, this.id).subscribe(
+    this.user.append('user', new Blob([JSON.stringify(this.personForm.value)], {type: 'application/json'}))
+    this.service.update(this.user, this.id).subscribe(
       data=>{
         console.log(data);
-        //this.person = new Person(this.id,nom,password, fonction, tel, sexe, age,);
       },
       error=>{
         console.log(error);
@@ -115,6 +114,7 @@ export class UpdateComponent implements OnInit {
     console.log(this.person);
     this.router.navigate(['/person']);
     this.service.emitPersons();
+    this.user = new FormData();
   }
 
   onUpdate(){
