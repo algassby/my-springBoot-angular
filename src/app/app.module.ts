@@ -22,6 +22,8 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
 import { UpdateFormComponent } from './update-form/update-form.component';
+import { DisplayComponentComponent } from './display-component/display-component.component';
+import { VoterComponentComponent } from './voter-component/voter-component.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { UpdateFormComponent } from './update-form/update-form.component';
     UploadFileComponent,
     ParentComponent,
     ChildComponent,
-    UpdateFormComponent
+    UpdateFormComponent,
+    DisplayComponentComponent,
+    VoterComponentComponent
   
   ],
   imports: [

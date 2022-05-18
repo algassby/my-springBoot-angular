@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Person } from '../model/person';
 import { PersonService } from '../service/person.service';
@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
 
   initForm(){
     this.personForm = this.formBuilder.group({
-      nom:['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
+      nom: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
       password:['',Validators.required],
       fonction:['', [Validators.required,Validators.maxLength(30), Validators.minLength(3)]],
       tel:['', Validators.required],
